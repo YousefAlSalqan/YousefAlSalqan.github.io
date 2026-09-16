@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yousef Al-Salqan — engineer</title>
+<meta name="description" content="Computer Systems student at the University of Limerick. Perception systems, applied ML, and things that have to work on real hardware.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --water:#E9F0F3;
+  --water-2:#DDE8EC;
+  --ink:#0F2733;
+  --ink-soft:#42606E;
+  --land:#E6DABA;
+  --mag:#AE1668;
+  --line:#9BB2BC;
+  --hair:#C2D2D9;
+}
+:root:not([data-theme="light"]){
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --water:#0A1920;
+    --water-2:#10242D;
+    --ink:#DCE8ED;
+    --ink-soft:#8FADB9;
+    --land:#2B2417;
+    --mag:#FF62AC;
+    --line:#37535F;
+    --hair:#223B46;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --water:#0A1920;
+  --water-2:#10242D;
+  --ink:#DCE8ED;
+  --ink-soft:#8FADB9;
+  --land:#2B2417;
+  --mag:#FF62AC;
+  --line:#37535F;
+  --hair:#223B46;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--water);
+  color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  font-weight:400;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--mag);outline-offset:3px;border-radius:2px}
+
+/* ---------- chart-style annotation type ---------- */
+.note{
+  font-family:Newsreader,Georgia,serif;
+  font-style:italic;
+  font-weight:400;
+  color:var(--ink-soft);
+  font-size:1rem;
+}
+
+/* ---------- masthead ---------- */
+header{padding:38px 0 0}
+.mast{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.mark{font-weight:600;letter-spacing:-0.01em;font-size:1rem}
+.coords{font-size:.82rem;color:var(--ink-soft);letter-spacing:.02em}
+
+/* ---------- hero ---------- */
+.hero{padding:54px 0 26px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+h1{
+  font-size:clamp(2.5rem,6.6vw,4.4rem);
+  line-height:.98;
+  letter-spacing:-0.035em;
+  font-weight:700;
+  margin:0 0 22px;
+}
+.lede{font-size:1.16rem;max-width:34ch;margin:0 0 26px;color:var(--ink)}
+.lede b{font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.92rem;color:var(--ink-soft);margin-bottom:26px}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-block;text-decoration:none;font-size:.95rem;font-weight:500;
+  padding:9px 17px;border:1px solid var(--ink);
+}
+.btn:hover{background:var(--ink);color:var(--water)}
+.btn.key{background:var(--mag);border-color:var(--mag);color:#fff}
+.btn.key:hover{background:transparent;color:var(--mag)}
+
+/* ---------- the plot ---------- */
+.plotwrap{position:relative}
+#plot{width:100%;height:auto;display:block;overflow:visible}
+.ring{fill:none;stroke:var(--hair);stroke-width:1}
+.spoke{stroke:var(--hair);stroke-width:1}
+.sweep{stroke:var(--mag);stroke-width:1.5;opacity:.85}
+.contact{cursor:pointer}
+.contact circle{fill:var(--mag)}
+.contact text{
+  font-size:11.5px;fill:var(--ink);font-weight:500;
+  font-family:Archivo,sans-serif;paint-order:stroke;
+  stroke:var(--water);stroke-width:3px;stroke-linejoin:round;
+}
+.contact:hover circle{r:7}
+.contact:hover text{fill:var(--mag)}
+.rangelabel{font-family:Newsreader,serif;font-style:italic;font-size:11px;fill:var(--ink-soft)}
+.plotcap{margin-top:12px;font-size:.88rem}
+
+/* ---------- sections ---------- */
+section{padding:56px 0;border-top:1px solid var(--hair)}
+h2{
+  font-size:1.05rem;font-weight:600;letter-spacing:.01em;margin:0 0 30px;
+  display:flex;align-items:baseline;gap:14px;
+}
+h2 span{font-family:Newsreader,serif;font-style:italic;font-weight:300;color:var(--ink-soft);font-size:.95rem}
+
+.now{font-size:1.24rem;line-height:1.55;max-width:60ch;margin:0}
+.now em{font-style:normal;color:var(--mag)}
+
+/* work entries — not cards */
+.entry{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);
+  gap:28px;padding:26px 0;border-bottom:1px solid var(--hair);
+}
+.entry:last-child{border-bottom:0}
+.entry h3{margin:0 0 6px;font-size:1.22rem;font-weight:600;letter-spacing:-0.015em}
+.entry h3 a{text-decoration:none;border-bottom:2px solid var(--mag);padding-bottom:1px}
+.entry h3 a:hover{color:var(--mag)}
+.entry p{margin:0 0 12px}
+.entry .stack{font-size:.85rem;color:var(--ink-soft);display:flex;gap:8px 14px;flex-wrap:wrap}
+.flag{
+  display:inline-block;font-size:.78rem;font-weight:500;color:var(--mag);
+  border:1px solid var(--mag);padding:2px 8px;margin-bottom:10px;
+}
+
+/* experience — a real sequence, so it gets a rule and dates */
+.job{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--hair)}
+.job:last-child{border-bottom:0}
+.when{font-family:Newsreader,serif;font-style:italic;color:var(--ink-soft);font-size:.98rem}
+.job h3{margin:0 0 4px;font-size:1.06rem;font-weight:600}
+.job .where{color:var(--ink-soft);font-size:.92rem;margin:0 0 8px}
+.job p{margin:0}
+
+/* toolkit */
+.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:26px 34px}
+.kit h4{margin:0 0 7px;font-size:.92rem;font-weight:600}
+.kit p{margin:0;color:var(--ink-soft);font-size:.95rem;line-height:1.55}
+
+/* contact */
+.end{background:var(--land);margin-top:0}
+.end .wrap{padding-top:52px;padding-bottom:52px}
+.end h2{color:var(--ink)}
+.end p{max-width:48ch;font-size:1.1rem}
+footer{padding:26px 0 44px;font-size:.85rem;color:var(--ink-soft)}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:38px;padding-top:36px}
+  .entry{grid-template-columns:1fr;gap:10px}
+  .job{grid-template-columns:1fr;gap:4px}
+  .plotwrap{max-width:460px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="mast">
+      <div class="mark">Yousef Al-Salqan</div>
+      <div class="coords">Limerick, Ireland &nbsp;·&nbsp; currently Boston, MA</div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>I build things that have to work on real hardware.</h1>
+      <p class="lede">Computer Systems at the University of Limerick, graduating 2028. Right now I'm fine-tuning detection models for a maritime perception system that runs on a moving boat.</p>
+      <div class="meta">
+        <span>Detection &amp; sensor fusion</span>
+        <span>Applied LLM work</span>
+        <span>EU + US citizen</span>
+      </div>
+      <div class="links">
+        <a class="btn key" href="mailto:ysalqan@gmail.com">Email me</a>
+        <a class="btn" href="https://github.com/YousefAlSalqan">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/yousef-salqan/">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="plotwrap">
+      <svg id="plot" viewBox="0 0 440 440" role="img" aria-label="A radar-style plot marking five projects. The same projects are listed below.">
+        <g id="grid"></g>
+        <line id="sweep" class="sweep" x1="220" y1="220" x2="220" y2="30" style="display:none"></line>
+        <g id="contacts"></g>
+      </svg>
+      <p class="plotcap note">Four contacts. Details below.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="now">
+    <h2>Now <span>since August</span></h2>
+    <p class="now">At <em>LOOKOUT</em> in Boston I train and fine-tune the detection models behind a maritime perception system — camera, radar, AIS and chart data fused into one view, running on Jetson hardware inside a hard real-time budget. Half the job is making the models accurate. The other half is making them fast enough to be worth having.</p>
+  </section>
+
+  <section id="work">
+    <h2>Selected work <span>mostly unassigned</span></h2>
+
+    <div class="entry">
+      <div>
+        <span class="flag">Best Young Project, Talent Demo Day Dublin 2025</span>
+        <h3><a href="https://github.com/YousefAlSalqan/Safety_Routing_Algorithm">TransportAI</a></h3>
+      </div>
+      <div>
+        <p>A routing engine that weighs safety alongside speed, with a conversational interface over the top. It came out of my own confusion after moving country — the fastest route and the route you actually want are not always the same thing, and no map tells you which is which.</p>
+        <div class="stack"><span>Python</span><span>A* with swappable cost functions</span><span>LLM interface</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div><h3><a href="https://github.com/YousefAlSalqan/Ethereum-Transaction-Security-Analyzer">Ethereum transaction analyzer</a></h3></div>
+      <div>
+        <p>A command-line tool that pulls a transaction by hash from a public JSON-RPC node, decodes its ERC-20 transfer and approval events, and returns a structured risk verdict rather than a wall of hex. The hard part was deciding what counts as evidence of risk, then making the output consistent enough to act on.</p>
+        <div class="stack"><span>Python</span><span>JSON-RPC</span><span>Multi-factor LLM prompting</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div><h3><a href="https://github.com/YousefAlSalqan/ImpactoMoneyKYT">Impacto KYT</a></h3></div>
+      <div>
+        <p>Know-your-transaction tooling for a payments company: layered analysis of on-chain activity producing a risk assessment a compliance team can read. Same problem as above at a larger scale, and with someone else depending on the answer.</p>
+        <div class="stack"><span>Python</span><span>Blockchain analytics</span><span>Risk scoring</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div><h3>Distillation detection</h3></div>
+      <div>
+        <p>A prompt-scoring pipeline for Tumeryk that spots attempts to distil a model, where the signal is spread deliberately across a whole conversation instead of sitting in any single message. An adversarial detection problem — the thing you're looking for is actively trying not to look like itself.</p>
+        <div class="stack"><span>Python</span><span>Multi-turn analysis</span><span>Adversarial detection</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="experience">
+    <h2>Where I've worked</h2>
+
+    <div class="job">
+      <div class="when">Aug 2026 — Jan 2027</div>
+      <div>
+        <h3>AI engineering intern</h3>
+        <p class="where">LOOKOUT — Boston, MA</p>
+        <p>Detection models in PyTorch, sensor fusion across camera, radar and AIS, deployment to Jetson, and the internal review application on Google Cloud.</p>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2025 — 2026</div>
+      <div>
+        <h3>Freelance engineering</h3>
+        <p class="where">Tumeryk · Impacto Money · Strikepay</p>
+        <p>Short, self-contained projects in LLM safety, blockchain risk analysis and payments — each in a domain I hadn't worked in before.</p>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2025 — 2026</div>
+      <div>
+        <h3>Java teaching assistant</h3>
+        <p class="where">University of Limerick</p>
+        <p>A year tutoring first years. Explaining pointers to somebody who has never seen one teaches you what you don't actually understand.</p>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">Summer 2024</div>
+      <div>
+        <h3>Software engineering intern</h3>
+        <p class="where">Jaffa.Net Software — Ramallah</p>
+        <p>Backend services for mobile applications and third-party API integration, in an agile team.</p>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when">2023 — 2024</div>
+      <div>
+        <h3>Founder</h3>
+        <p class="where">Copia — digital marketing</p>
+        <p>Built and ran a small agency. Learned more about scoping and saying no than about marketing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kit">
+    <h2>Toolkit</h2>
+    <div class="kit">
+      <div>
+        <h4>Day to day</h4>
+        <p>Python, PyTorch, OpenCV, NumPy, pandas. Weights &amp; Biases for tracking experiments properly rather than by memory.</p>
+      </div>
+      <div>
+        <h4>Also comfortable</h4>
+        <p>Java, C++, JavaScript and React. Java is the one I've taught, so it's the one I know coldest.</p>
+      </div>
+      <div>
+        <h4>Shipping</h4>
+        <p>Docker, Google Cloud — Firestore and Cloud Run — Git, Linux, and NVIDIA Jetson when it has to run on the boat.</p>
+      </div>
+      <div>
+        <h4>How I work</h4>
+        <p>Agentic tooling daily, wired into the project rather than in a chat window. Fast first drafts, checked before they ship.</p>
+      </div>
+      <div>
+        <h4>Studying</h4>
+        <p>BSc Computer Systems, University of Limerick, 3.8 QCA and an academic scholarship. Graduating 2028.</p>
+      </div>
+      <div>
+        <h4>Languages</h4>
+        <p>English, Arabic and French. French picked up properly while living in Bordeaux.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="end">
+  <div class="wrap">
+    <h2>Get in touch <span>I reply</span></h2>
+    <p>I'm looking for a software engineering internship for summer 2027, in Dublin or New York. I hold EU and US citizenship, so neither needs sponsorship.</p>
+    <div class="links" style="margin-top:22px">
+      <a class="btn key" href="mailto:ysalqan@gmail.com">ysalqan@gmail.com</a>
+      <a class="btn" href="https://github.com/YousefAlSalqan">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/yousef-salqan/">LinkedIn</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><footer>Built by hand. Last revised September 2026.</footer></div>
+
+<script>
+(function(){
+  const C = 220, R = 190;
+  const grid = document.getElementById('grid');
+  const contactsG = document.getElementById('contacts');
+  const sweep = document.getElementById('sweep');
+  const NS = 'http://www.w3.org/2000/svg';
+
+  function el(name, attrs){
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  // range rings
+  [0.34, 0.62, 0.86, 1].forEach(function(f){
+    grid.appendChild(el('circle', {cx:C, cy:C, r:R*f, class:'ring'}));
+  });
+  // bearing spokes every 30 degrees
+  for (let a = 0; a < 360; a += 30){
+    const rad = (a - 90) * Math.PI / 180;
+    grid.appendChild(el('line', {
+      x1:C, y1:C,
+      x2:C + Math.cos(rad)*R, y2:C + Math.sin(rad)*R,
+      class:'spoke'
+    }));
+  }
+  const rl = el('text', {x:C+6, y:C-R*0.62+14, class:'rangelabel'});
+  rl.textContent = 'projects';
+  grid.appendChild(rl);
+
+  // contacts: bearing in degrees, range as fraction of R
+  const marks = [
+    {b:22,  r:0.58, label:'TransportAI',  href:'#work'},
+    {b:98,  r:0.86, label:'Eth analyzer', href:'#work'},
+    {b:186, r:0.50, label:'Impacto KYT',  href:'#work'},
+    {b:278, r:0.78, label:'Distillation', href:'#work'}
+  ];
+
+  const nodes = marks.map(function(m){
+    const rad = (m.b - 90) * Math.PI / 180;
+    const x = C + Math.cos(rad) * R * m.r;
+    const y = C + Math.sin(rad) * R * m.r;
+    const g = el('g', {class:'contact', opacity:0});
+    const a = el('a', {href:m.href});
+    a.appendChild(el('circle', {cx:x, cy:y, r:5}));
+    const t = el('text', {
+      x: x + (x > C ? 10 : -10),
+      y: y + 4,
+      'text-anchor': x > C ? 'start' : 'end'
+    });
+    t.textContent = m.label;
+    a.appendChild(t);
+    g.appendChild(a);
+    contactsG.appendChild(g);
+    return {g:g, b:m.b};
+  });
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){
+    nodes.forEach(function(n){ n.g.setAttribute('opacity', 1); });
+    return;
+  }
+
+  // One sweep on load. It runs once, reveals each contact as it passes,
+  // then stops and stays stopped — no looping animation on the page.
+  sweep.style.display = '';
+  let angle = 0;
+  const DUR = 2200;
+  let start = null;
+
+  function frame(ts){
+    if (start === null) start = ts;
+    const p = Math.min((ts - start) / DUR, 1);
+    angle = p * 360;
+    const rad = (angle - 90) * Math.PI / 180;
+    sweep.setAttribute('x2', C + Math.cos(rad) * R);
+    sweep.setAttribute('y2', C + Math.sin(rad) * R);
+    nodes.forEach(function(n){
+      if (angle >= n.b && n.g.getAttribute('opacity') === '0'){
+        n.g.setAttribute('opacity', 1);
+      }
+    });
+    if (p < 1) requestAnimationFrame(frame);
+    else {
+      nodes.forEach(function(n){ n.g.setAttribute('opacity', 1); });
+      sweep.style.transition = 'opacity .5s';
+      sweep.style.opacity = 0;
+    }
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
