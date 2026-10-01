@@ -1,0 +1,12 @@
+{
+  "name": "yousef-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 4173 --bind 127.0.0.1",
+    "test": "node tests/site.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
