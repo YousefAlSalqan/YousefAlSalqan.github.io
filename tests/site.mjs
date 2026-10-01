@@ -51,6 +51,10 @@ try {
       assert.equal(await page.locator('html').getAttribute('data-theme'), theme);
       assert.equal(await page.locator('h1').textContent(), 'I build for the real world.');
       assert.equal(await page.locator('.other-projects article').count(), 4);
+      assert.equal(await page.locator('.journey-gallery img').count(), 3);
+      for (const link of await page.locator('.journey-gallery a').all()) {
+        assert.equal(await link.getAttribute('href'), await link.locator('img').getAttribute('src'));
+      }
       assert.equal(await page.locator('.jobs article').count(), 5);
       assert.equal(await page.locator('a[href="https://github.com/YousefAlSalqan/WealthGuide"]').count(), 1);
       const body = await page.locator('body').innerText();
@@ -86,6 +90,9 @@ try {
         await image.scrollIntoViewIfNeeded();
         await image.evaluate(node => node.decode());
         assert(await image.evaluate(node => node.naturalWidth > 0 && !!node.alt), 'Broken image or missing alt');
+        if (await image.evaluate(node => !!node.closest('.journey-gallery, .project-image'))) {
+          assert(await image.evaluate(node => Math.abs(node.width / node.height - node.naturalWidth / node.naturalHeight) < .02), 'Screenshot is cropped or stretched');
+        }
       }
       assert(await page.evaluate(() => document.documentElement.scrollWidth) <= width, `${width}px horizontal overflow`);
       await page.locator('summary').click();
